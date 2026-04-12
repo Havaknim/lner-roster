@@ -125,9 +125,9 @@
   <div class="cal-card">
     <div class="cal-header">
       <button class="nav-btn" id="prev-btn">&#8249;</button>
-      <button class="today-btn" id="today-btn">Today</button>
       <h2 id="month-label"></h2>
       <button class="nav-btn" id="next-btn">&#8250;</button>
+      <button class="today-btn" id="today-btn">Today</button>
     </div>
     <div class="cal-grid" id="cal-grid"></div>
   </div>
@@ -219,7 +219,7 @@ function renderResult() {
   const isRD = !entry.start;
   const prevKey = offsetKey(selectedKey, -1);
   const nextKey = offsetKey(selectedKey, 1);
-  rc.innerHTML = `<div class="result-date-title">${dayName}, ${dispDate}<span class="wk-badge">Week ${entry.wk}</span></div>${isRD ? `<div class="rest-day-block">Rest day</div>` : `<div class="metrics"><div class="metric"><p class="metric-label">Start</p><p class="metric-value">${entry.start}</p></div><div class="metric"><p class="metric-label">Finish</p><p class="metric-value">${entry.end}</p></div><div class="metric"><p class="metric-label">Turn</p><p class="metric-value${entry.turn.length>8?' small':''}">${entry.turn}</p></div><div class="metric"><p class="metric-label">Length</p><p class="metric-value">${entry.length}</p></div></div>`}<div class="adj-section">${adjHTML('Day before', prevKey)}${adjHTML('Day after', nextKey)}</div>`;
+  rc.innerHTML = `<div class="result-date-title">${dayName}, ${dispDate}</div>${isRD ? `<div class="rest-day-block">Rest day</div>` : `<div class="metrics"><div class="metric"><p class="metric-label">Start</p><p class="metric-value">${entry.start}</p></div><div class="metric"><p class="metric-label">Finish</p><p class="metric-value">${entry.end}</p></div><div class="metric"><p class="metric-label">Turn</p><p class="metric-value${entry.turn.length>8?' small':''}">${entry.turn}</p></div><div class="metric"><p class="metric-label">Length</p><p class="metric-value">${entry.length}</p></div></div>`}<div class="adj-section">${adjHTML('Day before', prevKey)}${adjHTML('Day after', nextKey)}</div>`;
 }
 
 document.getElementById('prev-btn').addEventListener('click', () => { viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCalendar(); });
