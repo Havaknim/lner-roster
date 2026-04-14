@@ -144,17 +144,9 @@ const DAY_NAMES = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","
 function pad(n) { return String(n).padStart(2,'0'); }
 function dateStr(d) { return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
 
-// Build name -> {link, line} lookup from ROSTER_DATA named_lines
-const NAME_MAP = {}; // name -> {link, line}
-const NAME_LIST = []; // [{name, link, line}] sorted
-for (const [linkName, linkData] of Object.entries(ROSTER_DATA)) {
-  for (const [lineStr, name] of Object.entries(linkData.named_lines)) {
-    const entry = { name, link: linkName, line: parseInt(lineStr) };
-    NAME_MAP[name] = entry;
-    NAME_LIST.push(entry);
-}
-}
-NAME_LIST.sort((a, b) => a.name.localeCompare(b.name));
+// NAME_MAP and NAME_LIST populated in init() after JSON load
+const NAME_MAP = {};
+const NAME_LIST = [];
 
 // Dark mode
 const darkBtn = document.getElementById('dark-btn');
