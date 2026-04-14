@@ -134,7 +134,7 @@ h1 { font-size: 20px; font-weight: 600; color: var(--text); letter-spacing: -0.3
 <body>
 <div class="container">
   <div class="top-bar">
-    <h1>LNER Roster</h1>
+    <h1>LNER Roster 321 &amp; 322</h1>
     <button class="dark-btn" id="dark-btn" title="Toggle dark mode">🌙</button>
   </div>
 
@@ -290,7 +290,7 @@ function renderCalendar() {
     el.className = cls;
     if (PAYDAYS.has(k)) { const dot = document.createElement('div'); dot.className = 'payday-dot'; el.appendChild(dot); }
     if (swap)            { const dot = document.createElement('div'); dot.className = 'swap-dot';   el.appendChild(dot); }
-    if (shift) { el.addEventListener('click', () => { selectedKey = k; renderCalendar(); renderResult(); }); }
+    if (shift) { el.addEventListener('click', () => { selectedKey = k; _swapFormOpen = false; renderCalendar(); renderResult(); }); }
     grid.appendChild(el);
   }
 }
@@ -374,17 +374,26 @@ function toggleAL(dateKey) {
 
 // ── Swap form ──
 let _swapMode = 'SHIFT';
+let _swapFormOpen = false;  // track whether form is showing
 
 function showSwapForm(dateKey) {
   const existing = getSwap(dateKey);
-  _swapMode = existing ? existing.type : 'SHIFT';
-  const startVal  = existing && existing.type === 'SHIFT' ? existing.start : '';
-  const endVal    = existing && existing.type === 'SHIFT' ? existing.end   : '';
-  const turnVal   = existing && existing.type === 'SHIFT' ? existing.turn  : '';
-  const withVal   = existing ? (existing.swappedWith || '') : '';
-  const lenVal    = existing && existing.type === 'SHIFT' ? existing.length : '';
-  const shiftAct  = _swapMode !== 'RD' ? 'active' : '';
-  const rdAct     = _swapMode === 'RD'  ? 'active' : '';
+  // Only reset mode if form isn't already open (so toggling SHIFT/RD preserves user intent)
+  if (!_swapFormOpen) {
+    _swapMode = existing ? existing.type : 'SHIFT';
+  }
+  _swapFormOpen = true;
+
+  // Preserve any values already typed in the form before rebuilding
+  const startVal = document.getElementById('sf-start')?.value || (existing && existing.type === 'SHIFT' ? existing.start : '');
+  const endVal   = document.getElementById('sf-end')?.value   || (existing && existing.type === 'SHIFT' ? existing.end   : '');
+  const turnVal  = document.getElementById('sf-turn')?.value  || (existing && existing.type === 'SHIFT' ? existing.turn  : '');
+  const withVal  = document.getElementById('sf-with')?.value  || (existing ? (existing.swappedWith || '') : '');
+  const lenVal   = calcLength(startVal, endVal) || (existing && existing.type === 'SHIFT' ? existing.length : '');
+
+  const shiftAct = _swapMode !== 'RD' ? 'active' : '';
+  const rdAct    = _swapMode === 'RD'  ? 'active' : '';
+
   const shiftFields = _swapMode !== 'RD' ? `
     <div class="swap-fields-grid">
       <div class="swap-field"><label>Start time</label><input type="time" id="sf-start" value="${startVal}" oninput="updateSwapLen()"></div>
@@ -392,7 +401,8 @@ function showSwapForm(dateKey) {
     </div>
     <div class="swap-field"><label>Turn number</label><input type="text" id="sf-turn" placeholder="e.g. 644 or SP" value="${turnVal}"></div>
     <p class="swap-length-display" id="sf-len">${lenVal ? 'Length: '+lenVal : ''}</p>` : '';
-  const form = `<div class="swap-form">
+
+  const form = `<div class="swap-form" id="swap-form-el">
     <p class="swap-form-title">Edit this day</p>
     <div class="swap-type-row">
       <button class="swap-type-btn ${shiftAct}" onclick="setSwapMode('SHIFT','${dateKey}')">Shift</button>
@@ -402,11 +412,21 @@ function showSwapForm(dateKey) {
     <div class="swap-field"><label>Swapped with</label><input type="text" id="sf-with" placeholder="Name" value="${withVal}"></div>
     <button class="swap-save-btn" onclick="saveSwap('${dateKey}')">Save swap</button>
   </div>`;
-  renderResult();
-  document.getElementById('result-card').insertAdjacentHTML('beforeend', form);
+
+  // If form already exists in DOM, replace it in-place without re-rendering the whole result card
+  const existing_form = document.getElementById('swap-form-el');
+  if (existing_form) {
+    existing_form.outerHTML = form;
+  } else {
+    renderResult();
+    document.getElementById('result-card').insertAdjacentHTML('beforeend', form);
+  }
 }
 
-function setSwapMode(mode, dateKey) { _swapMode = mode; showSwapForm(dateKey); }
+function setSwapMode(mode, dateKey) {
+  _swapMode = mode;
+  showSwapForm(dateKey);
+}
 
 function updateSwapLen() {
   const s = document.getElementById('sf-start')?.value;
@@ -426,10 +446,14 @@ function saveSwap(dateKey) {
     if (!s || !e) { alert('Please enter both a start and finish time.'); return; }
     setSwap(dateKey, { type: 'SHIFT', start: s, end: e, turn: t, length: calcLength(s, e), swappedWith: w });
   }
+  _swapFormOpen = false;
   renderCalendar(); renderResult();
 }
 
-function cancelSwap(dateKey) { removeSwap(dateKey); renderCalendar(); renderResult(); }
+function cancelSwap(dateKey) {
+  _swapFormOpen = false;
+  removeSwap(dateKey); renderCalendar(); renderResult();
+}
 
 // ── Navigation ──
 document.getElementById('prev-btn').addEventListener('click', () => { viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCalendar(); });
