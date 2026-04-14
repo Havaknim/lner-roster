@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LNER Roster — Links 321 & 322</title>
+<style>
+:root {
+  --bg: #f0f2f5;
+  --card: #ffffff;
+  --text: #1a1a2e;
+  --text-muted: #888;
+  --text-hint: #bbb;
+  --border: #e8eaed;
+  --metric-bg: #f7f8fa;
+  --nav-bg: #f0f2f5;
+  --nav-hover: #e0e3e8;
+  --accent: #6c5ce7;
+  --accent-light: #ede9ff;
+  --accent-text: #6c5ce7;
+  --rd-color: #e17055;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] {
+  --bg: #0f0f17;
+  --card: #1a1a2a;
+  --text: #e8e8f0;
+  --text-muted: #888;
+  --text-hint: #555;
+  --border: #2a2a3a;
+  --metric-bg: #22223a;
+  --nav-bg: #22223a;
+  --nav-hover: #2e2e48;
+  --accent: #a29bfe;
+  --accent-light: #2d2a4a;
+  --accent-text: #a29bfe;
+  --rd-color: #f0856a;
+  --shadow: 0 2px 16px rgba(0,0,0,0.4);
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 1.5rem 1rem 3rem; color: var(--text); transition: background 0.2s, color 0.2s; }
+.container { width: 100%; max-width: 420px; }
+.top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+h1 { font-size: 20px; font-weight: 600; color: var(--text); letter-spacing: -0.3px; }
+.dark-btn { width: 36px; height: 36px; border: 1.5px solid var(--border); background: var(--card); border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background 0.15s, border-color 0.15s; flex-shrink: 0; }
+.dark-btn:hover { background: var(--nav-bg); }
+.selectors-card { background: var(--card); border-radius: 16px; padding: 1rem 1.25rem; box-shadow: var(--shadow); margin-bottom: 0.75rem; display: flex; flex-direction: column; gap: 10px; }
+.sel-row { display: flex; align-items: center; gap: 10px; }
+.sel-row label { font-size: 13px; color: var(--text-muted); white-space: nowrap; flex-shrink: 0; min-width: 40px; }
+.sel-row select { flex: 1; padding: 8px 28px 8px 10px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; color: var(--text); background: var(--metric-bg); cursor: pointer; appearance: none; background-image: var(--select-arrow); background-repeat: no-repeat; background-position: right 10px center; transition: border-color 0.15s, background 0.2s; }
+.sel-row select:focus { outline: none; border-color: var(--accent); }
+.save-hint { font-size: 11px; color: var(--text-hint); text-align: right; margin-top: -2px; }
+.cal-card { background: var(--card); border-radius: 16px; padding: 1.25rem; box-shadow: var(--shadow); margin-bottom: 0.75rem; }
+.cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; gap: 8px; }
+.cal-header h2 { font-size: 16px; font-weight: 600; color: var(--text); }
+.nav-btn { width: 32px; height: 32px; border: none; background: var(--nav-bg); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text-muted); transition: background 0.15s; flex-shrink: 0; }
+.nav-btn:hover { background: var(--nav-hover); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.day-label { text-align: center; font-size: 12px; font-weight: 500; color: var(--text-hint); padding: 4px 0 8px; }
+.day-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 13px; border-radius: 8px; cursor: pointer; color: var(--text); transition: background 0.12s; position: relative; }
+.day-cell:hover:not(.empty):not(.out-range) { background: var(--nav-bg); }
+.day-cell.empty, .day-cell.out-range { cursor: default; color: var(--text-hint); }
+.day-cell.selected { background: var(--accent) !important; color: #fff !important; font-weight: 600; }
+.day-cell.today-cell:not(.selected)::after { content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+.day-cell.is-rd:not(.selected):not(.out-range) { color: var(--rd-color); }
+.jump-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.jump-label { font-size: 13px; color: var(--text-muted); white-space: nowrap; }
+.jump-btn { height: 32px; padding: 0 14px; border: none; background: var(--accent-light); border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 500; color: var(--accent-text); transition: opacity 0.15s; white-space: nowrap; }
+.jump-btn:hover { opacity: 0.8; }
+.result-card { background: var(--card); border-radius: 16px; padding: 1.25rem; box-shadow: var(--shadow); min-height: 80px; }
+.result-date-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wk-badge { font-size: 11px; background: var(--accent-light); color: var(--accent-text); border-radius: 20px; padding: 2px 10px; font-weight: 500; }
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+.metric { background: var(--metric-bg); border-radius: 10px; padding: 10px 12px; }
+.metric-label { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
+.metric-value { font-size: 18px; font-weight: 600; color: var(--text); }
+.metric-value.small { font-size: 14px; }
+.type-block { background: var(--metric-bg); border-radius: 10px; padding: 14px; text-align: center; font-size: 17px; font-weight: 600; margin-bottom: 1rem; color: var(--text); }
+.type-block.rd { color: var(--rd-color); }
+.adj-section { border-top: 1px solid var(--border); padding-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.adj-card { background: var(--metric-bg); border-radius: 10px; padding: 10px 12px; }
+.adj-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-hint); margin-bottom: 4px; }
+.adj-day-name { font-size: 12px; color: var(--text-muted); margin-bottom: 2px; }
+.adj-turn { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+.adj-times { font-size: 12px; color: var(--text-muted); }
+.adj-type { font-size: 13px; font-weight: 500; color: var(--text); }
+.adj-type.rd { color: var(--rd-color); }
+.payday-dot { position: absolute; top: 4px; right: 4px; width: 5px; height: 5px; border-radius: 50%; background: #f9ca24; }
+.day-cell.selected .payday-dot { background: #fff; }
+.payday-note { font-size: 12px; color: #c9a500; margin-top: 8px; display: flex; align-items: center; gap: 5px; }
+[data-theme="dark"] .payday-note { color: #f9ca24; }
+.special-note { font-size: 12px; color: var(--text-muted); margin-top: 8px; font-style: italic; }
+.timetable-note { font-size: 12px; color: var(--text-muted); margin-top: 8px; display: flex; align-items: flex-start; gap: 5px; font-style: italic; }
+.timetable-note::before { content: "\26A0"; font-style: normal; flex-shrink: 0; }
+.placeholder { color: var(--text-hint); font-size: 14px; text-align: center; padding: 0.5rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <h1>LNER Roster 321 &amp; 322</h1>
+    <button class="dark-btn" id="dark-btn" title="Toggle dark mode">🌙</button>
+  </div>
+
+  <div class="selectors-card">
+    <div class="sel-row">
+      <label for="name-sel">Name</label>
+      <select id="name-sel"></select>
+    </div>
+    <p class="save-hint">Your selection is saved automatically</p>
+  </div>
+
+  <div class="cal-card">
+    <div class="cal-header">
+      <button class="nav-btn" id="prev-btn">&#8249;</button>
+      <h2 id="month-label"></h2>
+      <button class="nav-btn" id="next-btn">&#8250;</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+  </div>
+
+  <div class="jump-bar">
+    <span class="jump-label">Jump to</span>
+    <button class="jump-btn" id="today-btn">Today</button>
+    <button class="jump-btn" id="next-turn-btn">Next turn of duty</button>
+  </div>
+
+  <div class="result-card" id="result-card">
+    <p class="placeholder">Select a date to view shift details.</p>
+  </div>
+</div>
+
+<script>
+const PAYDAYS = new Set(["2025-12-19","2026-01-16","2026-02-13","2026-03-13","2026-04-10","2026-05-08","2026-06-05","2026-07-03","2026-07-31","2026-08-28","2026-09-25","2026-10-23","2026-11-20","2026-12-18","2027-01-15","2027-02-12","2027-03-12","2027-04-09"]);
+const SPECIAL_DAYS = {"2025-12-25":"Public holiday — not required to work","2025-12-26":"Public holiday — not required to work","2026-12-25":"Public holiday — not required to work","2026-12-26":"Public holiday — not required to work"};
+
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const DAY_LABELS = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+const DAY_NAMES = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+function pad(n) { return String(n).padStart(2,'0'); }
+function dateStr(d) { return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+
+// Build name -> {link, line} lookup from ROSTER_DATA named_lines
+const NAME_MAP = {}; // name -> {link, line}
+const NAME_LIST = []; // [{name, link, line}] sorted
+for (const [linkName, linkData] of Object.entries(ROSTER_DATA)) {
+  for (const [lineStr, name] of Object.entries(linkData.named_lines)) {
+    const entry = { name, link: linkName, line: parseInt(lineStr) };
+    NAME_MAP[name] = entry;
+    NAME_LIST.push(entry);
+}
+}
+NAME_LIST.sort((a, b) => a.name.localeCompare(b.name));
+
+// Dark mode
+const darkBtn = document.getElementById('dark-btn');
+const savedTheme = localStorage.getItem('lnerTheme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+darkBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+darkBtn.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  darkBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('lnerTheme', next);
+});
+
+const nameSel = document.getElementById('name-sel');
+nameSel.addEventListener('change', () => {
+  localStorage.setItem('lnerName', nameSel.value);
+  selectedKey = todayKey;
+  renderCalendar(); renderResult();
+});
+
+const _now = new Date();
+const todayKey = dateStr(_now);
+let viewYear = _now.getFullYear(), viewMonth = _now.getMonth();
+let selectedKey = todayKey;
+
+function getShift(dateKey) {
+  const entry = NAME_MAP[nameSel.value];
+  if (!entry) return null;
+  const link = ROSTER_DATA[entry.link];
+  if (!link) return null;
+  const anchor = new Date(link.wk1_anchor + 'T00:00:00');
+  const dt = new Date(dateKey + 'T00:00:00');
+  const dayOfWeek = dt.getDay();
+  const diffDays = Math.round((dt - anchor) / 86400000);
+  if (diffDays < 0) return null;
+  const weekFromAnchor = Math.floor(diffDays / 7);
+  const cycleLen = link.cycle_length;
+  const shiftedWeekIdx = (weekFromAnchor + (entry.line - 1)) % cycleLen;
+  const weekData = link.weeks[shiftedWeekIdx];
+  if (!weekData) return null;
+  return weekData[DAY_NAMES[dayOfWeek]] || null;
+}
+
+function getWkNum(dateKey) {
+  const entry = NAME_MAP[nameSel.value];
+  if (!entry) return null;
+  const link = ROSTER_DATA[entry.link];
+  if (!link) return null;
+  const anchor = new Date(link.wk1_anchor + 'T00:00:00');
+  const dt = new Date(dateKey + 'T00:00:00');
+  const diffDays = Math.round((dt - anchor) / 86400000);
+  if (diffDays < 0) return null;
+  const weekFromAnchor = Math.floor(diffDays / 7);
+  return ((weekFromAnchor + (entry.line - 1)) % link.cycle_length) + 1;
+}
+
+function renderCalendar() {
+  document.getElementById('month-label').textContent = `${MONTHS[viewMonth]} ${viewYear}`;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+  DAY_LABELS.forEach(l => { const el = document.createElement('div'); el.className = 'day-label'; el.textContent = l; grid.appendChild(el); });
+  const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  for (let i = 0; i < firstDay; i++) { const el = document.createElement('div'); el.className = 'day-cell empty'; grid.appendChild(el); }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const k = `${viewYear}-${pad(viewMonth+1)}-${pad(d)}`;
+    const shift = getShift(k);
+    const el = document.createElement('div');
+    el.textContent = d;
+    let cls = 'day-cell';
+    if (!shift) cls += ' out-range';
+    else if (shift.type === 'RD') cls += ' is-rd';
+    if (k === selectedKey) cls += ' selected';
+    if (k === todayKey) cls += ' today-cell';
+    el.className = cls;
+    if (PAYDAYS.has(k)) { const dot = document.createElement('div'); dot.className = 'payday-dot'; el.appendChild(dot); }
+    if (shift) { el.addEventListener('click', () => { selectedKey = k; renderCalendar(); renderResult(); }); }
+    grid.appendChild(el);
+  }
+}
+
+function adjHTML(label, key) {
+  const dt = new Date(key + 'T00:00:00');
+  const dayName = dt.toLocaleDateString('en-GB', {weekday:'long'});
+  const dispDate = dt.toLocaleDateString('en-GB', {day:'numeric', month:'short'});
+  const shift = getShift(key);
+  if (!shift) return `<div class="adj-card"><p class="adj-title">${label}</p><p class="adj-day-name">${dayName} ${dispDate}</p><p class="adj-type">Outside roster</p></div>`;
+  if (shift.type === 'RD') return `<div class="adj-card"><p class="adj-title">${label}</p><p class="adj-day-name">${dayName} ${dispDate}</p><p class="adj-type rd">Rest day</p></div>`;
+  return `<div class="adj-card"><p class="adj-title">${label}</p><p class="adj-day-name">${dayName} ${dispDate}</p><p class="adj-turn">${shift.turn}</p><p class="adj-times">${shift.start} – ${shift.end} · ${shift.length}</p></div>`;
+}
+
+function renderResult() {
+  const rc = document.getElementById('result-card');
+  if (!selectedKey) { rc.innerHTML = '<p class="placeholder">Select a date to view shift details.</p>'; return; }
+  const shift = getShift(selectedKey);
+  if (!shift) { rc.innerHTML = '<p class="placeholder">Date outside roster range.</p>'; return; }
+  const dt = new Date(selectedKey + 'T00:00:00');
+  const dayName = dt.toLocaleDateString('en-GB', {weekday:'long'});
+  const dispDate = dt.toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+  const wkNum = getWkNum(selectedKey);
+  const prevKey = dateStr(new Date(dt.getTime() - 86400000));
+  const nextKey = dateStr(new Date(dt.getTime() + 86400000));
+  let mainHTML = '';
+  if (shift.type === 'RD') {
+    mainHTML = `<div class="type-block rd">Rest day</div>`;
+  } else {
+    mainHTML = `<div class="metrics"><div class="metric"><p class="metric-label">Start</p><p class="metric-value">${shift.start}</p></div><div class="metric"><p class="metric-label">Finish</p><p class="metric-value">${shift.end}</p></div><div class="metric"><p class="metric-label">Turn</p><p class="metric-value${shift.turn&&shift.turn.length>8?' small':''}">${shift.turn}</p></div><div class="metric"><p class="metric-label">Length</p><p class="metric-value">${shift.length}</p></div></div>`;
+  }
+  const paydayHTML = PAYDAYS.has(selectedKey) ? `<p class="payday-note">&#x1F4B7; Payday</p>` : '';
+  const specialHTML = SPECIAL_DAYS[selectedKey] ? `<p class="special-note">${SPECIAL_DAYS[selectedKey]}</p>` : '';
+  const timetableHTML = isAfterTimetableChange(selectedKey) ? `<p class="timetable-note">Jobs may differ after the May 2026 timetable change</p>` : '';
+  rc.innerHTML = `<div class="result-date-title">${dayName}, ${dispDate}<span class="wk-badge">Week ${wkNum}</span></div>${mainHTML}${paydayHTML}${specialHTML}${timetableHTML}<div class="adj-section">${adjHTML('Day before',prevKey)}${adjHTML('Day after',nextKey)}</div>`;
+}
+
+document.getElementById('prev-btn').addEventListener('click', () => { viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCalendar(); });
+document.getElementById('next-btn').addEventListener('click', () => { viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; } renderCalendar(); });
+document.getElementById('today-btn').addEventListener('click', () => {
+  viewYear = _now.getFullYear(); viewMonth = _now.getMonth();
+  selectedKey = todayKey;
+  renderCalendar(); renderResult();
+});
+document.getElementById('next-turn-btn').addEventListener('click', () => {
+  const start = new Date(_now.getTime() + 86400000);
+  let found = null;
+  for (let i = 0; i < 365; i++) {
+    const d = new Date(start.getTime() + i * 86400000);
+    const k = dateStr(d);
+    const shift = getShift(k);
+    if (shift && shift.type !== 'RD') { found = { key: k, year: d.getFullYear(), month: d.getMonth() }; break; }
+  }
+  if (found) { viewYear = found.year; viewMonth = found.month; selectedKey = found.key; renderCalendar(); renderResult(); }
+});
+
+// Timetable change date is read from JSON per-link at runtime
+// isAfterTimetableChange checks against the earliest change date across all loaded links
+let ROSTER_DATA = null;
+let TIMETABLE_CHANGE = null;
+
+function isAfterTimetableChange(dateKey) {
+  if (!TIMETABLE_CHANGE) return false;
+  return new Date(dateKey + 'T00:00:00') >= TIMETABLE_CHANGE;
+}
+
+async function init() {
+  try {
+    const resp = await fetch('lner_roster.json');
+    if (!resp.ok) throw new Error('Failed to load lner_roster.json');
+    ROSTER_DATA = await resp.json();
+
+    // Derive timetable change date from JSON (earliest across all links)
+    const changeDates = Object.values(ROSTER_DATA)
+      .map(l => l.timetable_change_date)
+      .filter(Boolean)
+      .map(d => new Date(d + 'T00:00:00'));
+    if (changeDates.length) {
+      TIMETABLE_CHANGE = new Date(Math.min(...changeDates));
+    }
+
+    // Populate name dropdown
+    NAME_LIST.length = 0;
+    Object.keys(NAME_MAP).forEach(k => delete NAME_MAP[k]);
+    for (const [linkName, linkData] of Object.entries(ROSTER_DATA)) {
+      for (const [lineStr, name] of Object.entries(linkData.named_lines)) {
+        const entry = { name, link: linkName, line: parseInt(lineStr) };
+        NAME_MAP[name] = entry;
+        NAME_LIST.push(entry);
+      }
+    }
+    NAME_LIST.sort((a, b) => a.name.localeCompare(b.name));
+    nameSel.innerHTML = '';
+    NAME_LIST.forEach(entry => {
+      const o = document.createElement('option');
+      o.value = entry.name;
+      o.textContent = entry.name;
+      nameSel.appendChild(o);
+    });
+    const savedName = localStorage.getItem('lnerName');
+    if (savedName && NAME_MAP[savedName]) nameSel.value = savedName;
+
+    renderCalendar();
+    renderResult();
+  } catch(e) {
+    document.getElementById('result-card').innerHTML = '<p class="placeholder">Could not load roster data. Make sure lner_roster.json is in the same folder as this file.</p>';
+    console.error(e);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
