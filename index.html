@@ -129,9 +129,16 @@ h1 { font-size: 20px; font-weight: 600; color: var(--text); letter-spacing: -0.3
 .swap-save-btn { height: 36px; border: none; border-radius: 8px; background: #00b894; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
 .swap-save-btn:hover { opacity: 0.85; }
 /* ── ICS Export ── */
-.export-card { background: var(--card); border-radius: 16px; padding: 1.25rem; box-shadow: var(--shadow); margin-top: 0.75rem; }
-.export-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
-.export-title span { font-size: 18px; }
+.open-export-btn { width: 100%; height: 42px; border: none; border-radius: 12px; background: var(--accent-light); color: var(--accent-text); font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 0.75rem; transition: opacity 0.15s; }
+.open-export-btn:hover { opacity: 0.8; }
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; align-items: flex-end; justify-content: center; padding: 0; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: var(--card); border-radius: 20px 20px 0 0; padding: 1.5rem 1.25rem 2rem; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; box-shadow: 0 -4px 30px rgba(0,0,0,0.3); animation: slideUp 0.25s ease; }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+.modal-title { font-size: 16px; font-weight: 600; color: var(--text); }
+.modal-close { width: 30px; height: 30px; border: none; background: var(--nav-bg); border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; }
+.modal-close:hover { background: var(--nav-hover); }
 .export-section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-hint); margin-bottom: 8px; margin-top: 12px; }
 .export-toggles { display: flex; flex-direction: column; gap: 8px; margin-bottom: 4px; }
 .export-toggle-row { display: flex; align-items: center; justify-content: space-between; background: var(--metric-bg); border-radius: 10px; padding: 10px 12px; }
@@ -193,49 +200,57 @@ h1 { font-size: 20px; font-weight: 600; color: var(--text); letter-spacing: -0.3
     <p class="placeholder">Select a date to view shift details.</p>
   </div>
 
-  <div class="export-card">
-    <p class="export-title"><span>📅</span> Export to Calendar</p>
+  <button class="open-export-btn" onclick="openExportModal()">📅 Export to Calendar</button>
 
-    <p class="export-section-label">Include in export</p>
-    <div class="export-toggles">
-      <div class="export-toggle-row">
-        <div class="export-toggle-left">
-          <label class="toggle-switch"><input type="checkbox" id="exp-shifts" checked><span class="toggle-slider"></span></label>
-          <span class="export-toggle-label">Shifts</span>
-        </div>
-        <div class="colour-dots" id="dots-shifts"></div>
+  <!-- Export modal -->
+  <div class="modal-overlay" id="export-modal" onclick="closeExportModal(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <p class="modal-title">📅 Export to Calendar</p>
+        <button class="modal-close" onclick="closeExportModal()">✕</button>
       </div>
-      <div class="export-toggle-row">
-        <div class="export-toggle-left">
-          <label class="toggle-switch"><input type="checkbox" id="exp-rd"><span class="toggle-slider"></span></label>
-          <span class="export-toggle-label">Rest days</span>
+
+      <p class="export-section-label">Include in export</p>
+      <div class="export-toggles">
+        <div class="export-toggle-row">
+          <div class="export-toggle-left">
+            <label class="toggle-switch"><input type="checkbox" id="exp-shifts" checked><span class="toggle-slider"></span></label>
+            <span class="export-toggle-label">Shifts</span>
+          </div>
+          <div class="colour-dots" id="dots-shifts"></div>
         </div>
-        <div class="colour-dots" id="dots-rd"></div>
-      </div>
-      <div class="export-toggle-row">
-        <div class="export-toggle-left">
-          <label class="toggle-switch"><input type="checkbox" id="exp-al"><span class="toggle-slider"></span></label>
-          <span class="export-toggle-label">Annual leave</span>
+        <div class="export-toggle-row">
+          <div class="export-toggle-left">
+            <label class="toggle-switch"><input type="checkbox" id="exp-rd"><span class="toggle-slider"></span></label>
+            <span class="export-toggle-label">Rest days</span>
+          </div>
+          <div class="colour-dots" id="dots-rd"></div>
         </div>
-        <div class="colour-dots" id="dots-al"></div>
-      </div>
-      <div class="export-toggle-row">
-        <div class="export-toggle-left">
-          <label class="toggle-switch"><input type="checkbox" id="exp-pay"><span class="toggle-slider"></span></label>
-          <span class="export-toggle-label">Paydays</span>
+        <div class="export-toggle-row">
+          <div class="export-toggle-left">
+            <label class="toggle-switch"><input type="checkbox" id="exp-al"><span class="toggle-slider"></span></label>
+            <span class="export-toggle-label">Annual leave</span>
+          </div>
+          <div class="colour-dots" id="dots-al"></div>
         </div>
-        <div class="colour-dots" id="dots-pay"></div>
+        <div class="export-toggle-row">
+          <div class="export-toggle-left">
+            <label class="toggle-switch"><input type="checkbox" id="exp-pay"><span class="toggle-slider"></span></label>
+            <span class="export-toggle-label">Paydays</span>
+          </div>
+          <div class="colour-dots" id="dots-pay"></div>
+        </div>
       </div>
+      <p class="export-colour-note">⚠️ Colours may not display in all calendar apps</p>
+
+      <p class="export-section-label" style="margin-top:14px">Date range</p>
+      <div class="export-dates">
+        <div class="export-date-field"><label>From</label><input type="date" id="exp-from"></div>
+        <div class="export-date-field"><label>To</label><input type="date" id="exp-to"></div>
+      </div>
+
+      <button class="export-btn" onclick="exportICS()">Download .ics file</button>
     </div>
-    <p class="export-colour-note">⚠️ Colours may not display in all calendar apps</p>
-
-    <p class="export-section-label" style="margin-top:14px">Date range</p>
-    <div class="export-dates">
-      <div class="export-date-field"><label>From</label><input type="date" id="exp-from"></div>
-      <div class="export-date-field"><label>To</label><input type="date" id="exp-to"></div>
-    </div>
-
-    <button class="export-btn" id="export-btn" onclick="exportICS()">Download .ics file</button>
   </div>
 </div>
 
@@ -556,6 +571,16 @@ document.getElementById('next-turn-btn').addEventListener('click', () => {
 });
 
 // ── Init ──
+function openExportModal() {
+  document.getElementById('export-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeExportModal(e) {
+  if (e && e.target !== document.getElementById('export-modal')) return;
+  document.getElementById('export-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 async function init() {
   try {
     const resp = await fetch('lner_roster.json');
