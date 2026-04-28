@@ -681,7 +681,7 @@
           "type": "SHIFT",
           "start": "13:10",
           "end": "22:13",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Wednesday": {
@@ -770,7 +770,7 @@
           "type": "SHIFT",
           "start": "13:10",
           "end": "22:13",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Thursday": {
@@ -838,9 +838,9 @@
         "Sunday": {
           "type": "SHIFT",
           "start": "15:10",
-          "end": "23:10",
-          "turn": "SP",
-          "length": "08:00"
+          "end": "23:58",
+          "turn": "A/R",
+          "length": "08:48"
         },
         "Monday": {
           "type": "SHIFT",
@@ -862,16 +862,16 @@
         "Thursday": {
           "type": "SHIFT",
           "start": "14:10",
-          "end": "20:29",
+          "end": "20:34",
           "turn": "597",
-          "length": "06:19"
+          "length": "06:24"
         },
         "Friday": {
           "type": "SHIFT",
           "start": "13:10",
-          "end": "19:29",
+          "end": "19:34",
           "turn": "524",
-          "length": "06:19"
+          "length": "06:24"
         },
         "Saturday": {
           "type": "RD"
@@ -890,23 +890,23 @@
         "Wednesday": {
           "type": "SHIFT",
           "start": "14:10",
-          "end": "20:29",
+          "end": "20:35",
           "turn": "597",
-          "length": "06:19"
+          "length": "06:25"
         },
         "Thursday": {
           "type": "SHIFT",
           "start": "13:10",
           "end": "22:13",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Friday": {
           "type": "SHIFT",
           "start": "14:10",
-          "end": "20:29",
+          "end": "20:34",
           "turn": "597",
-          "length": "06:19"
+          "length": "06:24"
         },
         "Saturday": {
           "type": "SHIFT",
@@ -928,7 +928,7 @@
           "type": "SHIFT",
           "start": "13:40",
           "end": "22:43",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Tuesday": {
@@ -976,7 +976,7 @@
           "type": "SHIFT",
           "start": "13:40",
           "end": "22:43",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Friday": {
@@ -990,7 +990,7 @@
           "type": "SHIFT",
           "start": "13:40",
           "end": "23:40",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "10:00"
         }
       },
@@ -998,9 +998,9 @@
         "Sunday": {
           "type": "SHIFT",
           "start": "14:40",
-          "end": "00:40",
-          "turn": "SP",
-          "length": "10:00"
+          "end": "00:00",
+          "turn": "A/R",
+          "length": "09:20"
         },
         "Monday": {
           "type": "RD"
@@ -1009,7 +1009,7 @@
           "type": "SHIFT",
           "start": "14:10",
           "end": "23:13",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Wednesday": {
@@ -1094,7 +1094,7 @@
           "type": "SHIFT",
           "start": "15:40",
           "end": "00:43",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Thursday": {
@@ -1147,7 +1147,7 @@
           "type": "SHIFT",
           "start": "14:10",
           "end": "23:13",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Saturday": {
@@ -1162,9 +1162,9 @@
         "Sunday": {
           "type": "SHIFT",
           "start": "14:40",
-          "end": "00:40",
-          "turn": "SP",
-          "length": "10:00"
+          "end": "00:00",
+          "turn": "A/R",
+          "length": "09:20"
         },
         "Monday": {
           "type": "SHIFT",
@@ -1186,16 +1186,16 @@
         "Thursday": {
           "type": "SHIFT",
           "start": "15:10",
-          "end": "21:33",
+          "end": "21:38",
           "turn": "585",
-          "length": "06:23"
+          "length": "06:28"
         },
         "Friday": {
           "type": "SHIFT",
           "start": "13:40",
-          "end": "19:59",
+          "end": "20:04",
           "turn": "545",
-          "length": "06:19"
+          "length": "06:24"
         },
         "Saturday": {
           "type": "RD"
@@ -1215,22 +1215,22 @@
           "type": "SHIFT",
           "start": "14:10",
           "end": "21:48",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "07:38"
         },
         "Thursday": {
           "type": "SHIFT",
           "start": "14:10",
           "end": "23:13",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Friday": {
           "type": "SHIFT",
           "start": "15:10",
-          "end": "21:33",
+          "end": "21:34",
           "turn": "585",
-          "length": "06:23"
+          "length": "06:24"
         },
         "Saturday": {
           "type": "SHIFT",
@@ -1252,7 +1252,7 @@
           "type": "SHIFT",
           "start": "14:10",
           "end": "23:13",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Tuesday": {
@@ -1269,7 +1269,7 @@
           "type": "SHIFT",
           "start": "14:29",
           "end": "23:32",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Friday": {
@@ -1304,21 +1304,21 @@
           "type": "SHIFT",
           "start": "13:40",
           "end": "22:43",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Friday": {
           "type": "SHIFT",
           "start": "14:29",
           "end": "23:32",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Saturday": {
           "type": "SHIFT",
           "start": "13:40",
           "end": "23:40",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "10:00"
         }
       }
@@ -2131,7 +2131,7 @@
           "type": "SHIFT",
           "start": "14:29",
           "end": "23:32",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Thursday": {
@@ -2235,7 +2235,7 @@
           "type": "SHIFT",
           "start": "16:10",
           "end": "02:00",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:50"
         },
         "Monday": {
@@ -2298,7 +2298,7 @@
           "type": "SHIFT",
           "start": "14:29",
           "end": "23:32",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Friday": {
@@ -2403,7 +2403,7 @@
           "type": "SHIFT",
           "start": "16:10",
           "end": "02:00",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:50"
         },
         "Monday": {
@@ -2416,14 +2416,14 @@
           "type": "SHIFT",
           "start": "15:40",
           "end": "00:43",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Thursday": {
           "type": "SHIFT",
           "start": "15:40",
           "end": "00:43",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Friday": {
@@ -2445,14 +2445,14 @@
           "type": "SHIFT",
           "start": "14:29",
           "end": "23:32",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Tuesday": {
           "type": "SHIFT",
           "start": "14:29",
           "end": "23:32",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Wednesday": {
@@ -2469,14 +2469,14 @@
           "type": "SHIFT",
           "start": "14:29",
           "end": "23:32",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Saturday": {
           "type": "SHIFT",
           "start": "15:10",
           "end": "00:40",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:30"
         }
       },
@@ -2485,7 +2485,7 @@
           "type": "SHIFT",
           "start": "15:10",
           "end": "01:00",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:50"
         },
         "Monday": {
@@ -2626,7 +2626,7 @@
           "type": "SHIFT",
           "start": "14:29",
           "end": "23:32",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "09:03"
         },
         "Friday": {
@@ -2640,7 +2640,7 @@
           "type": "SHIFT",
           "start": "15:10",
           "end": "23:50",
-          "turn": "SP",
+          "turn": "A/R",
           "length": "08:40"
         }
       }
